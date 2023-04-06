@@ -17,7 +17,8 @@ async def send_welcome(message: types.Message):
                          "/food показывает сколько денег вы потратели на еду\n"
                          "/entertainment покзывает слолько денег вы потратили на развличения\n"
                          "/transportation покзывает слолько денег вы потратили на транспорт\n"
-                         "/other покзывает слолько денег вы потратили бесполезную вещь")
+                         "/other покзывает слолько денег вы потратили на бесполезную вещь\n"
+                         "/all_expenses все доходы")
 
 
 @dp.message_handler(commands=["food"])
@@ -54,6 +55,15 @@ async def food(message: types.Message):
         await message.answer(f"Вы потратели на дичь {other} гривен, поздравляю")
     else:
         await message.answer("Вы молодець, ни на что не потратили деньги")
+
+
+@dp.message_handler(commands=["all_expenses"])
+async def all_expenses(message: types.Message):
+    expenses = finance.get_all_expenses()
+    if expenses:
+        await message.answer(f"Вы потратели вот такую суму денег {expenses} гривен")
+    else:
+        await message.answer("Вы ничего не потратели, бомж")
 
 
 @dp.message_handler()

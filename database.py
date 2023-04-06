@@ -59,23 +59,28 @@ class Finance:
     def get_cursor(self):
         return self.cur
 
-    def get_food(self):     # вот что возращает эта функция
+    def get_food(self):
         self.cur.execute("SELECT SUM(CAST(food AS INTEGER)) FROM Expenses;")
         rows = self.cur.fetchone()
         return rows[0]
 
-    def get_entertainment(self):     # вот что возращает эта функция
+    def get_entertainment(self):
         self.cur.execute("SELECT SUM(CAST(entertainment AS INTEGER)) FROM Expenses;")
         rows = self.cur.fetchone()
         return rows[0]
 
-    def get_transportation(self):     # вот что возращает эта функция
+    def get_transportation(self):
         self.cur.execute("SELECT SUM(CAST(transportation AS INTEGER)) FROM Expenses;")
         rows = self.cur.fetchone()
         return rows[0]
 
-    def get_other(self):     # вот что возращает эта функция
+    def get_other(self):
         self.cur.execute("SELECT SUM(CAST(other AS INTEGER)) FROM Expenses;")
+        rows = self.cur.fetchone()
+        return rows[0]
+
+    def get_all_expenses(self):
+        self.cur.execute("SELECT SUM(CAST(food AS INTEGER)) + SUM(CAST(other AS INTEGER)) + SUM(CAST(transportation AS INTEGER)) + SUM(CAST(entertainment AS INTEGER)) FROM Expenses;")
         rows = self.cur.fetchone()
         return rows[0]
 
